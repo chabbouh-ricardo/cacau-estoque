@@ -21,48 +21,135 @@
   --safe-b:env(safe-area-inset-bottom,0px);
   --safe-t:env(safe-area-inset-top,0px);
   --nav-h:64px;
+  --sidebar-w:240px;
 }
-html,body{height:100%;min-height:100vh;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.5;overflow:hidden}
-.shell{display:flex;flex-direction:column;height:100vh;height:100dvh;padding-top:var(--safe-t)}
-.topbar{padding:14px 18px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--bg);border-bottom:1px solid var(--border);flex-shrink:0}
-.topbar-left{display:flex;align-items:center;gap:10px}
-.t-logo{width:34px;height:34px;background:linear-gradient(135deg,var(--gold),var(--choc));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.t-title{font-size:16px;font-weight:600;color:var(--text)}
-.t-sub{font-size:12px;color:var(--text3);margin-top:1px}
-.alert-top{background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;display:none}
-.loja-bar{display:flex;gap:7px;padding:10px 18px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.5}
+
+/* ─── DESKTOP LAYOUT ─── */
+.shell{display:flex;height:100vh;height:100dvh}
+
+/* SIDEBAR — visible on desktop */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:var(--bg2);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  padding:24px 0 0;
+  overflow-y:auto;
+}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:0 20px 24px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.sb-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--choc));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.sb-logo-name{font-size:14px;font-weight:600;color:var(--text)}
+.sb-logo-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.sb-nav{padding:0 12px;flex:1}
+.sb-nav-label{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;padding:0 8px;margin-bottom:6px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 10px;border-radius:var(--radius-sm);cursor:pointer;color:var(--text2);font-size:13px;font-weight:400;border:none;background:none;width:100%;text-align:left;transition:.15s;position:relative}
+.sb-item svg{width:18px;height:18px;opacity:.55;flex-shrink:0;transition:.15s}
+.sb-item:hover{background:var(--bg3);color:var(--text)}
+.sb-item:hover svg{opacity:.9}
+.sb-item.active{background:rgba(200,151,42,.12);color:var(--gold2);font-weight:500}
+.sb-item.active svg{opacity:1}
+.sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:99px;line-height:16px;display:none}
+.sb-stores{padding:16px 12px calc(16px + var(--safe-b));border-top:1px solid var(--border);margin-top:auto}
+.sb-stores-label{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;padding:0 8px}
+.sb-store-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;border:none;background:none;color:var(--text2);font-size:13px;font-family:var(--font);transition:.15s;width:100%}
+.sb-store-btn:hover{background:var(--bg3);color:var(--text)}
+.sb-store-btn.active{background:rgba(200,151,42,.12);color:var(--gold2);font-weight:500}
+.sb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* MAIN AREA */
+.main-area{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+
+/* DESKTOP TOPBAR */
+.d-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px 0;flex-shrink:0;gap:16px;flex-wrap:wrap;
+}
+.d-topbar-left .page-title{font-size:22px;font-weight:600;color:var(--text)}
+.d-topbar-left .page-sub{font-size:13px;color:var(--text3);margin-top:2px}
+.d-topbar-actions{display:flex;gap:8px;align-items:center}
+.d-search-wrap{position:relative}
+.d-search-wrap svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);opacity:.35;pointer-events:none}
+.d-search{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 12px 8px 34px;color:var(--text);font-family:var(--font);font-size:13px;width:200px;transition:.2s;outline:none}
+.d-search:focus{border-color:var(--border2);width:240px}
+.d-search::placeholder{color:var(--text3)}
+
+/* SCROLL CONTENT */
+.content-scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+
+/* ─── MOBILE TOPBAR (hidden on desktop) ─── */
+.m-topbar{display:none;padding:14px 18px 12px;align-items:center;justify-content:space-between;gap:12px;background:var(--bg);border-bottom:1px solid var(--border);flex-shrink:0;padding-top:calc(14px + var(--safe-t))}
+.m-logo{display:flex;align-items:center;gap:10px}
+.m-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--gold),var(--choc));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.m-logo-name{font-size:15px;font-weight:600}
+.m-logo-sub{font-size:12px;color:var(--text3);margin-top:1px}
+.m-alert-badge{background:var(--red);color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;display:none}
+
+/* LOJA BAR — shown on both */
+.loja-bar{display:flex;gap:7px;padding:12px 20px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;border-bottom:1px solid var(--border)}
 .loja-bar::-webkit-scrollbar{display:none}
 .loja-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:var(--bg2);color:var(--text3);font-size:13px;white-space:nowrap;cursor:pointer;font-family:var(--font);transition:.15s}
 .loja-pill.active{background:rgba(200,151,42,.15);border-color:var(--border2);color:var(--gold2);font-weight:500}
 .loja-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(--nav-h) + var(--safe-b) + 12px)}
+
+/* ─── BOTTOM NAV (mobile only) ─── */
+.bnav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;
+  height:calc(var(--nav-h) + var(--safe-b));
+  padding-bottom:var(--safe-b);
+  background:var(--bg2);border-top:1px solid var(--border);
+  z-index:100;align-items:stretch;
+}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--text3);font-family:var(--font);font-size:10px;padding:0;transition:.15s;position:relative}
+.nb.active{color:var(--gold2)}
+.nb-ico-wrap{width:44px;height:28px;display:flex;align-items:center;justify-content:center}
+.nb.active .nb-ico-wrap{background:rgba(200,151,42,.12);border-radius:10px}
+.nb svg{width:20px;height:20px}
+.nb-badge{position:absolute;top:5px;right:calc(50% - 22px);background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px;line-height:14px;display:none;min-width:16px;text-align:center}
+
+/* ─── PAGES ─── */
 .page{display:none}
 .page.active{display:block;animation:fadeUp .18s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.sec-head{padding:18px 18px 10px;display:flex;align-items:center;justify-content:space-between}
-.sec-title{font-size:20px;font-weight:600}
-.sec-sub{font-size:12px;color:var(--text3);margin-top:2px}
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px 14px}
-.metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;position:relative;overflow:hidden}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.content-pad{padding:20px 28px 28px}
+.content-pad-m{padding:16px 18px 20px}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;position:relative;overflow:hidden}
 .metric::after{content:'';position:absolute;bottom:-12px;right:-12px;width:52px;height:52px;border-radius:50%;opacity:.1}
-.metric.cg::after{background:var(--gold)}
-.metric.cgr::after{background:var(--green)}
-.metric.ca::after{background:var(--amber)}
-.metric.cr::after{background:var(--red)}
+.metric.cg::after{background:var(--gold)}.metric.cgr::after{background:var(--green)}.metric.ca::after{background:var(--amber)}.metric.cr::after{background:var(--red)}
 .ml{font-size:11px;color:var(--text3);font-weight:500;letter-spacing:.03em;text-transform:uppercase;margin-bottom:6px}
-.mv{font-size:28px;font-weight:600;line-height:1}
+.mv{font-size:26px;font-weight:600;line-height:1}
 .mv.gold{color:var(--gold2)}.mv.green{color:var(--green)}.mv.amber{color:var(--amber)}.mv.red{color:var(--red)}
 .ms{font-size:11px;color:var(--text3);margin-top:3px}
-.search-wrap{padding:0 18px 10px;position:relative}
-.search-ico{position:absolute;left:30px;top:50%;transform:translateY(-50%);opacity:.35;pointer-events:none}
-.search-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 14px 11px 38px;color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:.2s;-webkit-appearance:none}
-.search-input:focus{border-color:var(--border2)}
-.search-input::placeholder{color:var(--text3)}
-.cat-row{display:flex;gap:7px;padding:0 18px 12px;overflow-x:auto;scrollbar-width:none}
+
+/* SEARCH (desktop inline) */
+.inline-search{position:relative;margin-bottom:14px}
+.inline-search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.35;pointer-events:none}
+.inline-search input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px 10px 38px;color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:.2s}
+.inline-search input:focus{border-color:var(--border2)}
+.inline-search input::placeholder{color:var(--text3)}
+
+/* CAT FILTERS */
+.cat-row{display:flex;gap:7px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none}
 .cat-row::-webkit-scrollbar{display:none}
 .cat-btn{padding:6px 14px;border-radius:99px;border:1px solid var(--border);background:var(--bg2);color:var(--text3);font-size:13px;white-space:nowrap;cursor:pointer;font-family:var(--font);transition:.15s}
 .cat-btn.active{border-color:var(--border2);background:rgba(200,151,42,.12);color:var(--gold2);font-weight:500}
-.prod-list{padding:0 18px;display:flex;flex-direction:column;gap:9px}
+
+/* TABLE */
+.table-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.table-header{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);gap:8px;flex-wrap:wrap}
+.table-header-title{font-size:14px;font-weight:500}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;padding:10px 20px;text-align:left;background:var(--bg3);border-bottom:1px solid var(--border)}
+tbody tr{transition:.12s}
+tbody tr:hover{background:var(--bg3)}
+tbody td{padding:12px 20px;border-bottom:1px solid rgba(200,151,42,.06);color:var(--text);font-size:13px;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+
+/* PROD CARDS (mobile) */
+.prod-list{display:flex;flex-direction:column;gap:9px}
 .prod-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px}
 .prod-icon{width:42px;height:42px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:var(--bg3)}
 .prod-info{flex:1;min-width:0}
@@ -72,40 +159,56 @@ html,body{height:100%;min-height:100vh;background:var(--bg);color:var(--text);fo
 .prod-qty{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;line-height:1}
 .prod-bar{height:3px;background:var(--bg4);border-radius:99px;margin-top:5px;width:48px;margin-left:auto}
 .prod-bar-fill{height:100%;border-radius:99px}
-.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;margin-top:4px}
+
+/* QTY BAR (table) */
+.qty-wrap{display:flex;align-items:center;gap:8px}
+.qty-num{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;min-width:32px}
+.qty-bar-wrap{flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:99px;min-width:50px;max-width:80px}
+.qty-bar{height:100%;border-radius:99px}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600;margin-top:3px}
 .badge::before{content:'';width:5px;height:5px;border-radius:50%}
 .b-ok{background:rgba(76,175,122,.15);color:#6FD4A0}.b-ok::before{background:#6FD4A0}
 .b-low{background:rgba(232,160,32,.15);color:#F0BC4A}.b-low::before{background:#F0BC4A}
 .b-out{background:rgba(224,87,87,.15);color:#F07070}.b-out::before{background:#F07070}
-.btn{padding:10px 18px;border-radius:var(--radius-sm);border:none;font-family:var(--font);font-size:14px;font-weight:500;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.b-cat{background:rgba(200,151,42,.1);color:var(--gold2);padding:2px 8px;font-size:11px;border-radius:var(--radius-sm)}
+
+/* BUTTONS */
+.btn{padding:9px 18px;border-radius:var(--radius-sm);border:none;font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
 .btn-ghost{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
-.btn-ghost:active{opacity:.7}
+.btn-ghost:hover{background:var(--bg4);color:var(--text);border-color:var(--border2)}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1A0F00;font-weight:600}
-.btn-gold:active{filter:brightness(.9)}
-.btn-sm{padding:7px 12px;font-size:12px}
+.btn-gold:hover{filter:brightness(1.08)}
+.btn-sm{padding:6px 12px;font-size:12px}
 .btn-danger{background:rgba(224,87,87,.12);color:#F07070;border:1px solid rgba(224,87,87,.25)}
-.btn-full{width:100%;padding:14px}
-.form-wrap{padding:0 18px 20px}
-.form-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px}
+.btn-full{width:100%;padding:13px}
+
+/* FORM */
+.form-wrap{max-width:540px}
+.form-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:14px}
 .form-card-title{font-size:14px;font-weight:500;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border)}
 .field{margin-bottom:14px}
 .field-label{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;display:block}
-.field input,.field select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;color:var(--text);font-family:var(--font);font-size:15px;outline:none;transition:.2s;-webkit-appearance:none}
-.field input:focus,.field select:focus{border-color:var(--border2)}
+.field input,.field select{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:.2s;-webkit-appearance:none}
+.field input:focus,.field select:focus{border-color:var(--border2);background:var(--bg4)}
 .field input::placeholder{color:var(--text3)}
 .field select option{background:var(--bg3)}
 .fields-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .type-toggle{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
 .type-opt{padding:14px 10px;border-radius:var(--radius-sm);border:1px solid var(--border);cursor:pointer;text-align:center;transition:.15s;background:var(--bg3)}
+.type-opt:hover{border-color:var(--border2)}
 .type-opt.sel-e{border-color:var(--green);background:rgba(76,175,122,.08)}
 .type-opt.sel-s{border-color:var(--red);background:rgba(224,87,87,.08)}
 .type-ico{font-size:22px;margin-bottom:5px}
 .type-label{font-size:14px;font-weight:500}
 .type-sub{font-size:11px;color:var(--text3);margin-top:2px}
-.feedback{padding:11px 14px;border-radius:var(--radius-sm);font-size:13px;margin-top:12px;display:none}
+.feedback{padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;margin-top:12px;display:none}
 .feedback.ok{background:rgba(76,175,122,.12);border:1px solid rgba(76,175,122,.3);color:#6FD4A0;display:block}
 .feedback.err{background:rgba(224,87,87,.12);border:1px solid rgba(224,87,87,.3);color:#F07070;display:block}
-.list-feed{padding:0 18px;display:flex;flex-direction:column;gap:9px}
+
+/* HISTORY */
+.hist-list{display:flex;flex-direction:column;gap:9px}
 .hist-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px}
 .hist-ico{width:38px;height:38px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;flex-shrink:0}
 .hi-e{background:rgba(76,175,122,.15);color:var(--green)}
@@ -114,9 +217,12 @@ html,body{height:100%;min-height:100vh;background:var(--bg);color:var(--text);fo
 .hist-prod{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hist-meta{font-size:12px;color:var(--text3);margin-top:2px}
 .hist-right{text-align:right;flex-shrink:0}
-.hist-qty{font-family:'DM Mono',monospace;font-size:17px;font-weight:600}
+.hist-qty{font-family:'DM Mono',monospace;font-size:16px;font-weight:600}
 .hist-qty.pos{color:var(--green)}.hist-qty.neg{color:var(--red)}
 .hist-loja{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* ALERTS */
+.alert-list{display:flex;flex-direction:column;gap:9px}
 .alert-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px}
 .alert-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .alert-info{flex:1;min-width:0}
@@ -124,213 +230,321 @@ html,body{height:100%;min-height:100vh;background:var(--bg);color:var(--text);fo
 .alert-store{font-size:12px;color:var(--text3);margin-top:2px}
 .alert-right{text-align:right;flex-shrink:0}
 .alert-lbl{font-size:10px;color:var(--text3)}
-.alert-nums{font-family:'DM Mono',monospace;font-size:17px;font-weight:600}
-.rep-wrap{padding:0 18px}
-.rep-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:12px}
+.alert-nums{font-family:'DM Mono',monospace;font-size:16px;font-weight:600}
+
+/* REPORTS */
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.rep-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
 .rep-title{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:14px}
 .rep-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .rep-row:last-child{margin-bottom:0}
-.rep-name{font-size:13px;color:var(--text2);min-width:90px}
+.rep-name{font-size:13px;color:var(--text2);min-width:90px;white-space:nowrap}
 .rep-bar-wrap{flex:1;height:6px;background:var(--bg4);border-radius:99px}
 .rep-bar-fill{height:100%;border-radius:99px;transition:.4s}
 .rep-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;min-width:28px;text-align:right}
-.rep-table{width:100%;border-collapse:collapse;font-size:13px}
-.rep-table th{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;padding:8px 0;border-bottom:1px solid var(--border);text-align:left}
-.rep-table td{padding:10px 0;border-bottom:1px solid rgba(200,151,42,.06);color:var(--text)}
-.rep-table tr:last-child td{border-bottom:none}
-.cfg-section{padding:0 18px 16px}
-.cfg-section-title{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;padding-top:4px}
-.cfg-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
-.cfg-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border)}
+
+/* CONFIG */
+.cfg-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px}
+.cfg-card-title{font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+.cfg-row{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--border)}
 .cfg-row:last-child{border-bottom:none}
 .cfg-info{flex:1;min-width:0}
 .cfg-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cfg-sub{font-size:12px;color:var(--text3);margin-top:2px}
 .cfg-actions{display:flex;gap:7px;flex-shrink:0}
+.cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+
+/* EMPTY */
 .empty{padding:48px 20px;text-align:center;color:var(--text3)}
 .empty-icon{font-size:36px;margin-bottom:10px;opacity:.5}
 .empty-text{font-size:14px}
-/* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + var(--safe-b));padding-bottom:var(--safe-b);background:var(--bg2);border-top:1px solid var(--border);display:flex;align-items:stretch;z-index:100}
-.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--text3);font-family:var(--font);font-size:10px;font-weight:400;padding:0;transition:.15s;position:relative}
-.nb.active{color:var(--gold2)}
-.nb-ico-wrap{width:44px;height:28px;display:flex;align-items:center;justify-content:center}
-.nb.active .nb-ico-wrap{background:rgba(200,151,42,.12);border-radius:10px}
-.nb-ico{width:20px;height:20px}
-.nb-badge{position:absolute;top:5px;right:calc(50% - 22px);background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px;line-height:14px;display:none;min-width:16px;text-align:center}
-/* MODALS */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;align-items:flex-end;justify-content:center}
+
+/* ─── MODALS ─── */
+/* Desktop: centered modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;align-items:center;justify-content:center;padding:20px}
 .overlay.open{display:flex}
-.sheet{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:16px 18px calc(16px + var(--safe-b));width:100%;max-height:92vh;overflow-y:auto;animation:slideUp .22s ease}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:none}}
-.sheet-handle{width:36px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 16px}
-.sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-.sheet-title{font-size:17px;font-weight:600}
-.sheet-close{background:var(--bg3);border:none;color:var(--text2);cursor:pointer;width:30px;height:30px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-size:16px}
-.sheet-footer{display:flex;gap:10px;margin-top:18px}
-.sheet-footer .btn{flex:1;padding:14px}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;width:100%;max-width:460px;animation:fadeUp .18s ease;max-height:90vh;overflow-y:auto}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-title{font-size:17px;font-weight:600}
+.modal-close{background:var(--bg3);border:none;color:var(--text2);cursor:pointer;width:30px;height:30px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.modal-close:hover{background:var(--bg4);color:var(--text)}
+.modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+.modal-footer .btn{min-width:100px}
+
 .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:300;align-items:center;justify-content:center;padding:20px}
 .confirm-overlay.open{display:flex}
-.confirm-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;width:100%;max-width:320px;animation:fadeUp .18s ease}
+.confirm-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:24px;width:100%;max-width:340px;animation:fadeUp .18s ease}
 .confirm-title{font-size:16px;font-weight:600;margin-bottom:10px}
 .confirm-msg{font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:20px}
-.confirm-footer{display:flex;gap:10px}
-.confirm-footer .btn{flex:1;padding:13px}
+.confirm-footer{display:flex;gap:10px;justify-content:flex-end}
+.confirm-footer .btn{min-width:90px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+
 .hidden{display:none!important}
+
+/* ─── RESPONSIVE BREAKPOINT ─── */
+@media (max-width: 768px) {
+  /* hide desktop sidebar */
+  .sidebar{display:none}
+  /* hide desktop topbar */
+  .d-topbar{display:none}
+  /* show mobile topbar */
+  .m-topbar{display:flex}
+  /* show bottom nav */
+  .bnav{display:flex}
+  /* loja bar adjustments */
+  .loja-bar{padding:10px 18px;border-bottom:1px solid var(--border)}
+  /* content padding */
+  .content-pad{padding:16px 18px 20px}
+  /* metrics: 2 cols on mobile */
+  .metrics{grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .mv{font-size:24px}
+  /* reports: 1 col on mobile */
+  .report-grid{grid-template-columns:1fr}
+  /* cfg grid: 1 col */
+  .cfg-grid{grid-template-columns:1fr}
+  /* modal as bottom sheet on mobile */
+  .overlay{align-items:flex-end;padding:0}
+  .modal{border-radius:var(--radius-lg) var(--radius-lg) 0 0;max-width:100%;padding:16px 18px calc(20px + var(--safe-b));animation:slideUp .22s ease}
+  .modal::before{content:'';display:block;width:36px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 16px}
+  .modal-footer{justify-content:stretch}
+  .modal-footer .btn{flex:1}
+  /* content bottom padding for nav */
+  .content-scroll{padding-bottom:calc(var(--nav-h) + var(--safe-b) + 8px)}
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:none}}
 </style>
 </head>
 <body>
 <div class="shell">
-  <!-- TOPBAR -->
-  <div class="topbar">
-    <div class="topbar-left">
-      <div class="t-logo">🍫</div>
+
+  <!-- ─── SIDEBAR (desktop) ─── -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-icon">🍫</div>
       <div>
-        <div class="t-title">Cacau Show</div>
-        <div class="t-sub" id="loja-label">Loja — VG</div>
+        <div class="sb-logo-name">Cacau Show</div>
+        <div class="sb-logo-sub">Controle de Estoque</div>
       </div>
     </div>
-    <span class="alert-top" id="alert-top">0</span>
+    <div class="sb-nav">
+      <div class="sb-nav-label">Menu</div>
+      <button class="sb-item active" onclick="navTo('estoque',this,'sb')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        Estoque
+      </button>
+      <button class="sb-item" onclick="navTo('movimentar',this,'sb')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Movimentar
+      </button>
+      <button class="sb-item" onclick="navTo('historico',this,'sb')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        Histórico
+      </button>
+      <button class="sb-item" onclick="navTo('alertas',this,'sb')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Alertas
+        <span class="sb-badge" id="sb-alert-count">0</span>
+      </button>
+      <button class="sb-item" onclick="navTo('relatorios',this,'sb')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 17l5-6 4 4 5-8"/><rect x="2" y="2" width="20" height="20" rx="3"/></svg>
+        Relatórios
+      </button>
+      <button class="sb-item" onclick="navTo('configuracoes',this,'sb')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Configurações
+      </button>
+    </div>
+    <div class="sb-stores">
+      <div class="sb-stores-label">Loja</div>
+      <button class="sb-store-btn active" id="sbs0" onclick="setLoja(0)"><span class="sb-dot" style="background:#C8972A"></span>Loja — VG</button>
+      <button class="sb-store-btn" id="sbs1" onclick="setLoja(1)"><span class="sb-dot" style="background:#4CAF7A"></span>Loja — LAPA</button>
+      <button class="sb-store-btn" id="sbs-1" onclick="setLoja(-1)"><span class="sb-dot" style="background:#7A6A54"></span>Visão Geral</button>
+    </div>
   </div>
 
-  <!-- LOJA BAR -->
-  <div class="loja-bar">
-    <button class="loja-pill active" id="lp0" onclick="setLoja(0)"><span class="loja-dot" style="background:#C8972A"></span>Loja VG</button>
-    <button class="loja-pill" id="lp1" onclick="setLoja(1)"><span class="loja-dot" style="background:#4CAF7A"></span>Loja LAPA</button>
-    <button class="loja-pill" id="lp-1" onclick="setLoja(-1)"><span class="loja-dot" style="background:#7A6A54"></span>Geral</button>
-  </div>
+  <!-- ─── MAIN AREA ─── -->
+  <div class="main-area">
 
-  <!-- MAIN -->
-  <div class="main">
-
-    <!-- ESTOQUE -->
-    <div class="page active" id="pg-estoque">
-      <div class="metrics" id="metrics"></div>
-      <div class="search-wrap">
-        <svg class="search-ico" width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6"/><path d="M15 15l3 3"/></svg>
-        <input class="search-input" id="search" placeholder="Buscar produto..." oninput="renderEstoque()">
+    <!-- Mobile topbar -->
+    <div class="m-topbar">
+      <div class="m-logo">
+        <div class="m-logo-icon">🍫</div>
+        <div><div class="m-logo-name">Cacau Show</div><div class="m-logo-sub" id="m-loja-label">Loja — VG</div></div>
       </div>
-      <div class="cat-row" id="cat-row"></div>
-      <div class="prod-list" id="prod-list"></div>
-      <div style="height:16px"></div>
+      <span class="m-alert-badge" id="m-alert-badge">0!</span>
     </div>
 
-    <!-- MOVIMENTAR -->
-    <div class="page" id="pg-movimentar">
-      <div class="sec-head"><div><div class="sec-title">Movimentar</div><div class="sec-sub">Registrar entrada ou saída</div></div></div>
-      <div class="form-wrap">
-        <div class="form-card">
-          <div class="form-card-title">Tipo de movimentação</div>
-          <div class="type-toggle">
-            <div class="type-opt sel-e" id="opt-e" onclick="selTipo('entrada')">
-              <div class="type-ico">📦</div><div class="type-label">Entrada</div><div class="type-sub">Recebimento</div>
+    <!-- Loja bar (always visible on mobile, hidden on desktop since sidebar has it) -->
+    <div class="loja-bar" id="loja-bar-mobile" style="display:none">
+      <button class="loja-pill active" id="lp0" onclick="setLoja(0)"><span class="loja-dot" style="background:#C8972A"></span>Loja VG</button>
+      <button class="loja-pill" id="lp1" onclick="setLoja(1)"><span class="loja-dot" style="background:#4CAF7A"></span>Loja LAPA</button>
+      <button class="loja-pill" id="lp-1" onclick="setLoja(-1)"><span class="loja-dot" style="background:#7A6A54"></span>Geral</button>
+    </div>
+
+    <!-- Desktop topbar -->
+    <div class="d-topbar">
+      <div class="d-topbar-left">
+        <div class="page-title" id="d-page-title">Estoque</div>
+        <div class="page-sub" id="d-page-sub">Loja — VG</div>
+      </div>
+      <div class="d-topbar-actions">
+        <div class="d-search-wrap" id="d-search-wrap">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6"/><path d="M15 15l3 3"/></svg>
+          <input class="d-search" id="d-search" placeholder="Buscar produto..." oninput="renderEstoque()">
+        </div>
+        <button class="btn btn-gold" id="d-add-btn" onclick="openProdModal()">
+          <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 4v12M4 10h12"/></svg>
+          Novo produto
+        </button>
+      </div>
+    </div>
+
+    <!-- Scroll area -->
+    <div class="content-scroll">
+
+      <!-- ESTOQUE -->
+      <div class="page active" id="pg-estoque">
+        <div class="content-pad">
+          <div class="metrics" id="metrics"></div>
+          <!-- mobile search -->
+          <div class="inline-search" id="m-search-wrap" style="display:none">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6"/><path d="M15 15l3 3"/></svg>
+            <input id="m-search" placeholder="Buscar produto..." oninput="renderEstoque()">
+          </div>
+          <div class="cat-row" id="cat-row"></div>
+          <!-- desktop table -->
+          <div id="d-table-wrap">
+            <div class="table-card">
+              <div class="table-header">
+                <span class="table-header-title">Produtos</span>
+              </div>
+              <table>
+                <thead><tr><th>Produto</th><th>Categoria</th><th>Quantidade</th><th>Mínimo</th><th>Status</th><th></th></tr></thead>
+                <tbody id="d-tbody"></tbody>
+              </table>
             </div>
-            <div class="type-opt" id="opt-s" onclick="selTipo('saida')">
-              <div class="type-ico">🛒</div><div class="type-label">Saída</div><div class="type-sub">Venda / consumo</div>
+          </div>
+          <!-- mobile cards -->
+          <div id="m-prod-list" class="prod-list" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- MOVIMENTAR -->
+      <div class="page" id="pg-movimentar">
+        <div class="content-pad">
+          <div class="form-wrap">
+            <div class="form-card">
+              <div class="form-card-title">Tipo de movimentação</div>
+              <div class="type-toggle">
+                <div class="type-opt sel-e" id="opt-e" onclick="selTipo('entrada')">
+                  <div class="type-ico">📦</div><div class="type-label">Entrada</div><div class="type-sub">Recebimento</div>
+                </div>
+                <div class="type-opt" id="opt-s" onclick="selTipo('saida')">
+                  <div class="type-ico">🛒</div><div class="type-label">Saída</div><div class="type-sub">Venda / consumo</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-card">
+              <div class="form-card-title">Detalhes</div>
+              <div class="field"><label class="field-label">Loja</label><select id="mov-loja"><option value="0">Loja — VG</option><option value="1">Loja — LAPA</option></select></div>
+              <div class="field"><label class="field-label">Produto</label><select id="mov-prod"></select></div>
+              <div class="fields-row">
+                <div class="field"><label class="field-label">Quantidade</label><input type="number" id="mov-qty" value="1" min="1" inputmode="numeric"></div>
+                <div class="field"><label class="field-label">Observação</label><input type="text" id="mov-obs" placeholder="Opcional"></div>
+              </div>
+              <button class="btn btn-gold btn-full" onclick="registrar()">Confirmar movimentação</button>
+              <div class="feedback" id="mov-fb"></div>
             </div>
           </div>
         </div>
-        <div class="form-card">
-          <div class="form-card-title">Detalhes</div>
-          <div class="field"><label class="field-label">Loja</label>
-            <select id="mov-loja"><option value="0">Loja — VG</option><option value="1">Loja — LAPA</option></select>
-          </div>
-          <div class="field"><label class="field-label">Produto</label><select id="mov-prod"></select></div>
-          <div class="fields-row">
-            <div class="field"><label class="field-label">Quantidade</label><input type="number" id="mov-qty" value="1" min="1" inputmode="numeric"></div>
-            <div class="field"><label class="field-label">Observação</label><input type="text" id="mov-obs" placeholder="Opcional"></div>
-          </div>
-          <button class="btn btn-gold btn-full" onclick="registrar()">Confirmar movimentação</button>
-          <div class="feedback" id="mov-fb"></div>
+      </div>
+
+      <!-- HISTÓRICO -->
+      <div class="page" id="pg-historico">
+        <div class="content-pad">
+          <div class="hist-list" id="hist-list"></div>
         </div>
       </div>
-    </div>
 
-    <!-- HISTÓRICO -->
-    <div class="page" id="pg-historico">
-      <div class="sec-head"><div><div class="sec-title">Histórico</div><div class="sec-sub">Todas as movimentações</div></div></div>
-      <div class="list-feed" id="hist-list"></div>
-      <div style="height:16px"></div>
-    </div>
-
-    <!-- ALERTAS -->
-    <div class="page" id="pg-alertas">
-      <div class="sec-head"><div><div class="sec-title">Alertas</div><div class="sec-sub">Produtos que precisam de atenção</div></div></div>
-      <div class="list-feed" id="alert-list"></div>
-      <div style="height:16px"></div>
-    </div>
-
-    <!-- RELATÓRIOS -->
-    <div class="page" id="pg-relatorios">
-      <div class="sec-head"><div><div class="sec-title">Relatórios</div><div class="sec-sub">Comparativo entre lojas</div></div></div>
-      <div class="rep-wrap" id="rep-wrap"></div>
-    </div>
-
-    <!-- CONFIGURAÇÕES -->
-    <div class="page" id="pg-configuracoes">
-      <div class="sec-head">
-        <div><div class="sec-title">Configurações</div><div class="sec-sub">Produtos e categorias</div></div>
-      </div>
-      <div class="cfg-section">
-        <div class="cfg-section-title">Produtos</div>
-        <div class="cfg-card" id="cfg-prods"></div>
-        <button class="btn btn-gold btn-full" style="margin-top:6px" onclick="openProdModal()">+ Novo produto</button>
-      </div>
-      <div class="cfg-section">
-        <div class="cfg-section-title">Categorias</div>
-        <div class="cfg-card" id="cfg-cats"></div>
-        <div style="display:flex;gap:10px;margin-top:10px">
-          <div class="field" style="flex:1;margin-bottom:0">
-            <input type="text" id="nova-cat" placeholder="Nova categoria..." onkeydown="if(event.key==='Enter')addCat()">
-          </div>
-          <button class="btn btn-gold" onclick="addCat()">Adicionar</button>
+      <!-- ALERTAS -->
+      <div class="page" id="pg-alertas">
+        <div class="content-pad">
+          <div class="alert-list" id="alert-list"></div>
         </div>
-        <div class="feedback" id="cat-fb" style="margin-top:10px"></div>
       </div>
-    </div>
 
-  </div><!-- /main -->
+      <!-- RELATÓRIOS -->
+      <div class="page" id="pg-relatorios">
+        <div class="content-pad" id="rep-wrap"></div>
+      </div>
+
+      <!-- CONFIGURAÇÕES -->
+      <div class="page" id="pg-configuracoes">
+        <div class="content-pad">
+          <div class="cfg-grid">
+            <div>
+              <div class="cfg-card-title">Produtos</div>
+              <div class="cfg-card" id="cfg-prods"></div>
+              <button class="btn btn-gold btn-full" style="margin-top:6px" onclick="openProdModal()">+ Novo produto</button>
+            </div>
+            <div>
+              <div class="cfg-card-title">Categorias</div>
+              <div class="cfg-card" id="cfg-cats"></div>
+              <div style="display:flex;gap:10px;margin-top:10px">
+                <div class="field" style="flex:1;margin-bottom:0"><input type="text" id="nova-cat" placeholder="Nova categoria..." onkeydown="if(event.key==='Enter')addCat()"></div>
+                <button class="btn btn-gold" onclick="addCat()">Adicionar</button>
+              </div>
+              <div class="feedback" id="cat-fb" style="margin-top:10px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-scroll -->
+  </div><!-- /main-area -->
 </div><!-- /shell -->
 
-<!-- BOTTOM NAV -->
+<!-- BOTTOM NAV (mobile) -->
 <nav class="bnav">
-  <button class="nb active" id="nb-estoque" onclick="navTo('estoque',this)">
-    <div class="nb-ico-wrap"><svg class="nb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+  <button class="nb active" id="nb-estoque" onclick="navTo('estoque',this,'nb')">
+    <div class="nb-ico-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
     Estoque
   </button>
-  <button class="nb" id="nb-movimentar" onclick="navTo('movimentar',this)">
-    <div class="nb-ico-wrap"><svg class="nb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+  <button class="nb" id="nb-movimentar" onclick="navTo('movimentar',this,'nb')">
+    <div class="nb-ico-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
     Mover
   </button>
-  <button class="nb" id="nb-historico" onclick="navTo('historico',this)">
-    <div class="nb-ico-wrap"><svg class="nb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+  <button class="nb" id="nb-historico" onclick="navTo('historico',this,'nb')">
+    <div class="nb-ico-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
     Histórico
   </button>
-  <button class="nb" id="nb-alertas" onclick="navTo('alertas',this)">
+  <button class="nb" id="nb-alertas" onclick="navTo('alertas',this,'nb')">
     <div class="nb-ico-wrap">
-      <svg class="nb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      <span class="nb-badge" id="alert-count">0</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="nb-badge" id="nb-alert-count">0</span>
     </div>
     Alertas
   </button>
   <button class="nb" id="nb-mais" onclick="openMais()">
-    <div class="nb-ico-wrap"><svg class="nb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div>
+    <div class="nb-ico-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg></div>
     Mais
   </button>
 </nav>
 
-<!-- MAIS SHEET -->
+<!-- MAIS SHEET (mobile) -->
 <div class="overlay" id="mais-overlay" onclick="if(event.target===this)closeMais()">
-  <div class="sheet" onclick="event.stopPropagation()" style="padding-bottom:calc(20px + var(--safe-b))">
-    <div class="sheet-handle"></div>
+  <div class="modal" onclick="event.stopPropagation()" style="max-width:100%">
     <div style="display:flex;flex-direction:column;gap:2px">
-      <button style="display:flex;align-items:center;gap:14px;padding:15px 10px;border-radius:var(--radius-sm);background:none;border:none;color:var(--text2);font-family:var(--font);font-size:15px;cursor:pointer;width:100%;text-align:left" onclick="navTo('relatorios',document.getElementById('nb-mais'));closeMais()">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 17l5-6 4 4 5-8"/><rect x="2" y="2" width="20" height="20" rx="3"/></svg>
-        Relatórios
+      <button style="display:flex;align-items:center;gap:14px;padding:15px 8px;border-radius:var(--radius-sm);background:none;border:none;color:var(--text2);font-family:var(--font);font-size:15px;cursor:pointer;width:100%;text-align:left" onclick="navTo('relatorios',document.getElementById('nb-mais'),'nb');closeMais()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 17l5-6 4 4 5-8"/><rect x="2" y="2" width="20" height="20" rx="3"/></svg>Relatórios
       </button>
-      <button style="display:flex;align-items:center;gap:14px;padding:15px 10px;border-radius:var(--radius-sm);background:none;border:none;color:var(--text2);font-family:var(--font);font-size:15px;cursor:pointer;width:100%;text-align:left" onclick="navTo('configuracoes',document.getElementById('nb-mais'));closeMais()">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Configurações
+      <button style="display:flex;align-items:center;gap:14px;padding:15px 8px;border-radius:var(--radius-sm);background:none;border:none;color:var(--text2);font-family:var(--font);font-size:15px;cursor:pointer;width:100%;text-align:left" onclick="navTo('configuracoes',document.getElementById('nb-mais'),'nb');closeMais()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Configurações
       </button>
     </div>
   </div>
@@ -338,11 +552,10 @@ html,body{height:100%;min-height:100vh;background:var(--bg);color:var(--text);fo
 
 <!-- PRODUTO MODAL -->
 <div class="overlay" id="overlay-prod" onclick="if(event.target===this)closeProdModal()">
-  <div class="sheet" onclick="event.stopPropagation()">
-    <div class="sheet-handle"></div>
-    <div class="sheet-head">
-      <div class="sheet-title" id="prod-modal-title">Novo produto</div>
-      <button class="sheet-close" onclick="closeProdModal()">✕</button>
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div class="modal-title" id="prod-modal-title">Novo produto</div>
+      <button class="modal-close" onclick="closeProdModal()">✕</button>
     </div>
     <div class="field"><label class="field-label">Nome</label><input type="text" id="add-nome" placeholder="Ex: Trufa de Maracujá"></div>
     <div class="fields-row">
@@ -353,14 +566,14 @@ html,body{height:100%;min-height:100vh;background:var(--bg);color:var(--text);fo
       <div class="field"><label class="field-label">Qtd VG</label><input type="number" id="add-q1" value="0" min="0" inputmode="numeric"></div>
       <div class="field"><label class="field-label">Qtd LAPA</label><input type="number" id="add-q2" value="0" min="0" inputmode="numeric"></div>
     </div>
-    <div class="sheet-footer">
+    <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeProdModal()">Cancelar</button>
       <button class="btn btn-gold" id="prod-save-btn" onclick="salvarProduto()">Salvar</button>
     </div>
   </div>
 </div>
 
-<!-- CONFIRM MODAL -->
+<!-- CONFIRM -->
 <div class="confirm-overlay" id="overlay-confirm">
   <div class="confirm-box">
     <div class="confirm-title">Confirmar exclusão</div>
@@ -373,7 +586,7 @@ html,body{height:100%;min-height:100vh;background:var(--bg);color:var(--text);fo
 </div>
 
 <script>
-const SK='cacau_mobile_v2';
+const SK='cacau_resp_v1';
 const ICONS={'Trufas':'🍫','Tabletes':'🍫','Bombons':'🍬','Ovos de Páscoa':'🥚','Drágeas':'🫘','Outros':'📦'};
 function defaultDB(){return{
   lojas:['Loja — VG','Loja — LAPA'],
@@ -398,27 +611,52 @@ function load(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):defa
 function save(){try{localStorage.setItem(SK,JSON.stringify(db))}catch(e){}}
 
 let db=load(),currentPage='estoque',currentLoja=0,editingId=null,movTipo='entrada',catFilter='',confirmCb=null;
+const isMobile=()=>window.innerWidth<=768;
 
 function getStatus(p,l){const q=l>=0?p.qtd[l]:p.qtd[0]+p.qtd[1];const m=l>=0?p.min:p.min*2;return q===0?'out':q<m?'low':'ok'}
 function badge(s){if(s==='ok')return'<span class="badge b-ok">Ok</span>';if(s==='low')return'<span class="badge b-low">Baixo</span>';return'<span class="badge b-out">Zerado</span>'}
 function barColor(p){return p>50?'#4CAF7A':p>20?'#E8A020':'#E05757'}
 function icon(c){return ICONS[c]||'📦'}
 
-function navTo(page,el){
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  if(el)el.classList.add('active');
-  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active')});
-  document.getElementById('pg-'+page).classList.add('active');
-  currentPage=page;renderPage();
-  document.querySelector('.main').scrollTo(0,0);
+function applyLayout(){
+  const mobile=isMobile();
+  document.getElementById('loja-bar-mobile').style.display=mobile?'flex':'none';
+  document.getElementById('m-search-wrap').style.display=mobile?'block':'none';
+  document.getElementById('d-search-wrap').style.display=mobile?'none':'flex';
+  document.getElementById('d-add-btn').style.display=mobile?'none':'flex';
+  document.getElementById('d-table-wrap').style.display=mobile?'none':'block';
+  document.getElementById('m-prod-list').style.display=mobile?'flex':'none';
 }
+
+function navTo(page,el,type){
+  if(type==='sb'){document.querySelectorAll('.sb-item').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active')}
+  else if(type==='nb'){document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active')}
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-'+page).classList.add('active');
+  currentPage=page;
+  const titles={estoque:'Estoque',movimentar:'Movimentar',historico:'Histórico',alertas:'Alertas',relatorios:'Relatórios',configuracoes:'Configurações'};
+  document.getElementById('d-page-title').textContent=titles[page]||page;
+  const showSearch=page==='estoque';
+  document.getElementById('d-search-wrap').style.display=showSearch&&!isMobile()?'flex':'none';
+  document.getElementById('d-add-btn').style.display=page==='estoque'&&!isMobile()?'flex':'none';
+  renderPage();
+  document.querySelector('.content-scroll').scrollTo(0,0);
+}
+
 function setLoja(l){
   currentLoja=l;
-  [-1,0,1].forEach(i=>document.getElementById(i===-1?'lp-1':'lp'+i).classList.toggle('active',i===l));
-  document.getElementById('loja-label').textContent={0:'Loja — VG',1:'Loja — LAPA','-1':'Visão Geral'}[l];
+  [-1,0,1].forEach(i=>{
+    const id=i===-1?'lp-1':'lp'+i;const el=document.getElementById(id);if(el)el.classList.toggle('active',i===l);
+    const sid=i===-1?'sbs-1':'sbs'+i;const sel=document.getElementById(sid);if(sel)sel.classList.toggle('active',i===l);
+  });
+  const names={0:'Loja — VG',1:'Loja — LAPA','-1':'Visão Geral'};
+  document.getElementById('d-page-sub').textContent=names[l];
+  const ml=document.getElementById('m-loja-label');if(ml)ml.textContent=names[l];
   renderPage();
 }
+
 function renderPage(){
+  applyLayout();
   if(currentPage==='estoque')renderEstoque();
   else if(currentPage==='movimentar')renderMovimentar();
   else if(currentPage==='historico')renderHistorico();
@@ -427,14 +665,18 @@ function renderPage(){
   else if(currentPage==='configuracoes')renderConfiguracoes();
   updateBadge();
 }
+
 function updateBadge(){
   let n=0;
   db.produtos.forEach(p=>{(currentLoja>=0?[currentLoja]:[0,1]).forEach(li=>{if(getStatus(p,li)!=='ok')n++})});
-  const el=document.getElementById('alert-count');el.textContent=n;el.style.display=n?'':'none';
-  const top=document.getElementById('alert-top');top.textContent=n+'!';top.style.display=n?'':'none';
+  ['sb-alert-count','nb-alert-count'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent=n;el.style.display=n?'':'none'}});
+  const mb=document.getElementById('m-alert-badge');if(mb){mb.textContent=n+'!';mb.style.display=n?'':'none'}
 }
+
+function getSearch(){return isMobile()?(document.getElementById('m-search')||{value:''}).value.toLowerCase():(document.getElementById('d-search')||{value:''}).value.toLowerCase()}
+
 function renderEstoque(){
-  const s=(document.getElementById('search')||{value:''}).value.toLowerCase();
+  const s=getSearch();
   let ps=db.produtos.filter(p=>(!s||(p.nome.toLowerCase().includes(s)||p.cat.toLowerCase().includes(s)))&&(!catFilter||p.cat===catFilter));
   const tot=db.produtos.length,unids=ps.reduce((a,p)=>a+(currentLoja>=0?p.qtd[currentLoja]:p.qtd[0]+p.qtd[1]),0);
   const baixo=db.produtos.filter(p=>getStatus(p,currentLoja)==='low').length,zerado=db.produtos.filter(p=>getStatus(p,currentLoja)==='out').length;
@@ -446,16 +688,25 @@ function renderEstoque(){
   const cats=[...new Set(db.produtos.map(p=>p.cat))];
   document.getElementById('cat-row').innerHTML=`<button class="cat-btn${!catFilter?' active':''}" onclick="setCat('')">Todos</button>`+cats.map(c=>`<button class="cat-btn${catFilter===c?' active':''}" onclick="setCat('${c}')">${c}</button>`).join('');
   const maxQ=Math.max(...db.produtos.map(p=>currentLoja>=0?p.qtd[currentLoja]:p.qtd[0]+p.qtd[1]),1);
-  document.getElementById('prod-list').innerHTML=!ps.length
+  // desktop table
+  document.getElementById('d-tbody').innerHTML=ps.length===0
+    ?`<tr><td colspan="6" style="text-align:center;padding:32px;color:var(--text3)">Nenhum produto encontrado</td></tr>`
+    :ps.map(p=>{const q=currentLoja>=0?p.qtd[currentLoja]:p.qtd[0]+p.qtd[1];const pct=Math.round(q/maxQ*100);return`<tr>
+      <td style="font-weight:500">${p.nome}</td>
+      <td><span class="b-cat">${p.cat}</span></td>
+      <td><div class="qty-wrap"><span class="qty-num">${q}</span><div class="qty-bar-wrap"><div class="qty-bar" style="width:${pct}%;background:${barColor(pct)}"></div></div></div></td>
+      <td style="color:var(--text3)">${p.min}</td>
+      <td>${badge(getStatus(p,currentLoja))}</td>
+      <td><button class="btn btn-ghost btn-sm" onclick="openProdModal(${p.id})">Editar</button></td>
+    </tr>`;}).join('');
+  // mobile cards
+  document.getElementById('m-prod-list').innerHTML=ps.length===0
     ?'<div class="empty"><div class="empty-icon">🔍</div><div class="empty-text">Nenhum produto encontrado</div></div>'
     :ps.map(p=>{const q=currentLoja>=0?p.qtd[currentLoja]:p.qtd[0]+p.qtd[1];const pct=Math.round(q/maxQ*100);return`
       <div class="prod-card">
         <div class="prod-icon">${icon(p.cat)}</div>
         <div class="prod-info"><div class="prod-name">${p.nome}</div><div class="prod-cat">${p.cat}</div>${badge(getStatus(p,currentLoja))}</div>
-        <div class="prod-right">
-          <div class="prod-qty" style="color:${barColor(pct)}">${q}</div>
-          <div class="prod-bar"><div class="prod-bar-fill" style="width:${pct}%;background:${barColor(pct)}"></div></div>
-        </div>
+        <div class="prod-right"><div class="prod-qty" style="color:${barColor(pct)}">${q}</div><div class="prod-bar"><div class="prod-bar-fill" style="width:${pct}%;background:${barColor(pct)}"></div></div></div>
       </div>`;}).join('');
 }
 function setCat(c){catFilter=c;renderEstoque()}
@@ -510,36 +761,35 @@ function renderRelatorios(){
   const mS2=db.historico.filter(h=>h.loja===1&&h.tipo==='saida').reduce((a,h)=>a+h.qty,0);
   const mx=Math.max(mE1,mS1,mE2,mS2,1);
   document.getElementById('rep-wrap').innerHTML=`
-    <div class="metrics" style="margin-bottom:12px">
+    <div class="metrics" style="margin-bottom:20px">
       <div class="metric cg"><div class="ml">Total VG</div><div class="mv gold">${t1}</div><div class="ms">unidades</div></div>
       <div class="metric cgr"><div class="ml">Total LAPA</div><div class="mv green">${t2}</div><div class="ms">unidades</div></div>
+      <div class="metric ca"><div class="ml">Entradas</div><div class="mv amber">${mE1+mE2}</div><div class="ms">unidades</div></div>
+      <div class="metric cr"><div class="ml">Saídas</div><div class="mv red">${mS1+mS2}</div><div class="ms">unidades</div></div>
     </div>
-    <div class="rep-card"><div class="rep-title">Estoque por loja</div>
-      <div class="rep-row"><span class="rep-name">Loja VG</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(t1/maxT*100)}%;background:var(--gold)"></div></div><span class="rep-val">${t1}</span></div>
-      <div class="rep-row"><span class="rep-name">Loja LAPA</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(t2/maxT*100)}%;background:var(--green)"></div></div><span class="rep-val">${t2}</span></div>
+    <div class="report-grid">
+      <div class="rep-card"><div class="rep-title">Estoque por loja</div>
+        <div class="rep-row"><span class="rep-name">Loja VG</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(t1/maxT*100)}%;background:var(--gold)"></div></div><span class="rep-val">${t1}</span></div>
+        <div class="rep-row"><span class="rep-name">Loja LAPA</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(t2/maxT*100)}%;background:var(--green)"></div></div><span class="rep-val">${t2}</span></div>
+      </div>
+      <div class="rep-card"><div class="rep-title">Movimentações</div>
+        <div class="rep-row"><span class="rep-name">VG Entradas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mE1/mx*100)}%;background:var(--green)"></div></div><span class="rep-val">${mE1}</span></div>
+        <div class="rep-row"><span class="rep-name">VG Saídas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mS1/mx*100)}%;background:var(--red)"></div></div><span class="rep-val">${mS1}</span></div>
+        <div class="rep-row"><span class="rep-name">LAPA Entradas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mE2/mx*100)}%;background:var(--green)"></div></div><span class="rep-val">${mE2}</span></div>
+        <div class="rep-row"><span class="rep-name">LAPA Saídas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mS2/mx*100)}%;background:var(--red)"></div></div><span class="rep-val">${mS2}</span></div>
+      </div>
     </div>
-    <div class="rep-card"><div class="rep-title">Movimentações</div>
-      <div class="rep-row"><span class="rep-name">VG Entradas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mE1/mx*100)}%;background:var(--green)"></div></div><span class="rep-val">${mE1}</span></div>
-      <div class="rep-row"><span class="rep-name">VG Saídas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mS1/mx*100)}%;background:var(--red)"></div></div><span class="rep-val">${mS1}</span></div>
-      <div class="rep-row"><span class="rep-name">LAPA Entradas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mE2/mx*100)}%;background:var(--green)"></div></div><span class="rep-val">${mE2}</span></div>
-      <div class="rep-row"><span class="rep-name">LAPA Saídas</span><div class="rep-bar-wrap"><div class="rep-bar-fill" style="width:${Math.round(mS2/mx*100)}%;background:var(--red)"></div></div><span class="rep-val">${mS2}</span></div>
-    </div>
-    <div class="rep-card"><div class="rep-title">Comparativo detalhado</div>
-      <table class="rep-table">
-        <thead><tr><th>Produto</th><th style="text-align:right">VG</th><th style="text-align:right">LAPA</th><th style="text-align:right">Total</th></tr></thead>
-        <tbody>${db.produtos.map(p=>`<tr><td>${p.nome}</td><td style="text-align:right">${p.qtd[0]}</td><td style="text-align:right">${p.qtd[1]}</td><td style="text-align:right;font-weight:600">${p.qtd[0]+p.qtd[1]}</td></tr>`).join('')}</tbody>
-      </table>
-    </div><div style="height:8px"></div>`;
+    <div class="table-card"><div class="table-header"><span class="table-header-title">Comparativo detalhado</span></div>
+      <table><thead><tr><th>Produto</th><th>VG</th><th>LAPA</th><th>Total</th><th>Status</th></tr></thead>
+      <tbody>${db.produtos.map(p=>`<tr><td style="font-weight:500">${p.nome}</td><td>${p.qtd[0]}</td><td>${p.qtd[1]}</td><td style="font-weight:600">${p.qtd[0]+p.qtd[1]}</td><td>${badge(getStatus(p,-1))}</td></tr>`).join('')}</tbody></table>
+    </div>`;
 }
 function renderConfiguracoes(){
   document.getElementById('cfg-prods').innerHTML=!db.produtos.length
     ?'<div class="cfg-row"><div class="cfg-info"><div class="cfg-sub">Nenhum produto</div></div></div>'
     :db.produtos.map(p=>`<div class="cfg-row">
       <div class="cfg-info"><div class="cfg-name">${p.nome}</div><div class="cfg-sub">${p.cat} · VG: ${p.qtd[0]} · LAPA: ${p.qtd[1]}</div></div>
-      <div class="cfg-actions">
-        <button class="btn btn-ghost btn-sm" onclick="openProdModal(${p.id})">Editar</button>
-        <button class="btn btn-danger btn-sm" onclick="confirmarExcluirProd(${p.id})">Excluir</button>
-      </div>
+      <div class="cfg-actions"><button class="btn btn-ghost btn-sm" onclick="openProdModal(${p.id})">Editar</button><button class="btn btn-danger btn-sm" onclick="confirmarExcluirProd(${p.id})">Excluir</button></div>
     </div>`).join('');
   document.getElementById('cfg-cats').innerHTML=!db.categorias.length
     ?'<div class="cfg-row"><div class="cfg-info"><div class="cfg-sub">Nenhuma categoria</div></div></div>'
@@ -591,7 +841,7 @@ document.getElementById('confirm-ok').addEventListener('click',()=>{if(confirmCb
 function addCat(){
   const inp=document.getElementById('nova-cat'),nome=inp.value.trim(),fb=document.getElementById('cat-fb');
   if(!nome){fb.className='feedback err';fb.textContent='Digite o nome.';return}
-  if(db.categorias.some(c=>c.toLowerCase()===nome.toLowerCase())){fb.className='feedback err';fb.textContent='Categoria já existe.';return}
+  if(db.categorias.some(c=>c.toLowerCase()===nome.toLowerCase())){fb.className='feedback err';fb.textContent='Já existe.';return}
   db.categorias.push(nome);save();inp.value='';
   fb.className='feedback ok';fb.textContent=`"${nome}" adicionada!`;
   setTimeout(()=>{fb.className='feedback';fb.textContent=''},2000);
@@ -599,6 +849,7 @@ function addCat(){
 }
 function openMais(){document.getElementById('mais-overlay').classList.add('open')}
 function closeMais(){document.getElementById('mais-overlay').classList.remove('open')}
+window.addEventListener('resize',()=>{applyLayout();renderEstoque()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeProdModal();closeConfirm();closeMais()}});
 renderPage();
 </script>
